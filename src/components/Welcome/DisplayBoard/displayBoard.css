@@ -1,0 +1,301 @@
+@tailwind components;
+
+@layer components {
+    .drop {
+        animation: drop-in 2.5s;
+        transform-origin: bottom left;
+        transform: translateY(25dvh) rotateZ(0deg);
+        }
+    
+        @keyframes drop-in {
+        0% {
+            animation-timing-function: cubic-bezier(.74,0,.86,.4);
+            transform: translateY(-100dvh) rotateZ(-85deg);
+        }
+        40% {
+            animation-timing-function: cubic-bezier(1,0,.94,.14);
+            transform: translateY(25dvh) rotateZ(-85deg);
+        }
+        }
+        .smile {
+        background-image: url(/noto-smile.gif);
+        background-position: center;
+        background-size: contain;
+        }
+    
+        .pan-start {
+        animation: pan-start 5.5s linear 2.5s 1 backwards;
+        }
+    
+        .pan-infinite {
+        animation: pan-infinite 5s linear 8s infinite forwards;
+        }
+    
+        @keyframes pan-start {
+        from {
+            transform: translateX(33%);
+            transform-origin: left;
+        }
+        to {
+            transform: translateX(-33%);
+            transform-origin: left;
+        }
+        }
+    
+        @keyframes pan-infinite {
+        from {
+            transform: translateX(-33%);
+            transform-origin: left;
+        }
+        to {
+            transform: translateX(-81.35%);
+            transform-origin: left;
+        }
+        }
+        
+        .glow {
+        box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1);
+        }
+        
+        .board-flicker {
+        animation: flicker-in 4s linear 2.5s 1 forwards;
+        }
+    
+        .board-flicker-text {
+        animation: flicker-in-text 4s linear 2.5s 1 forwards;
+        }
+    
+        @keyframes flicker-in {
+        0% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        0.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        10% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        10.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        10.2% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        20% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        20.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        20.6% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        30% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        30.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        30.5% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        30.6% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        45% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        45.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        50% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        55% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        55.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        57% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        57.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        60% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        60.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        65% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        65.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        75% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        75.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        77% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        77.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        85% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        85.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        86% {
+            box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.1)
+        }
+        86.1% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        100% {
+            box-shadow: inset 0px 0px 7px 1px rgba(255,255,224,0.1)
+        }
+        }
+    
+        @keyframes flicker-in-text {
+        0% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        1% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        10% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        10.1% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        10.2% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        20% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        20.1% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        20.6% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        30% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        30.1% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        30.5% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        30.6% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        45% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        45.1% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        50% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        55% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        55.1% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        57% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        57.1% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        60% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        60.1% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        65% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        65.1% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        75% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        75.1% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        77% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        77.1% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        85% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        85.1% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        86% {
+            opacity: 0;
+            filter: drop-shadow(0px 0px 1px #000000);
+        }
+        86.1% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        100% {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+        }
+    
+        .text-glow {
+        filter: drop-shadow(0px 0px 5px #ffff2a);
+        }
+}

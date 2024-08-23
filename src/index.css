@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;  
+    font-synthesis: none;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    shape-rendering: geometricPrecision;
+
+    @apply dark:bg-[#242424] dark:text-white bg-[#C2BEB2] text-[#242424]
+  }
+
+  #root {
+    @apply h-[100dvh] w-[100dvw] flex p-0 m-0
+  }
+}
