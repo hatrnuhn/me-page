@@ -3,19 +3,21 @@ import MarioBackground from "../components/Welcome/MarioBackground"
 import MarioSprite from "../components/Welcome/MarioSprite"
 import Controls from "../components/Welcome/Controls"
 import Blocks from "../components/Welcome/Blocks"
+import { useGlobal } from "../hooks"
+import { MOVE_STEP } from "../constants"
 
 const Welcome = () => {
+    const { pressedKey: {value: pressedKey} } = useGlobal()!
     const divRef = useRef<HTMLDivElement>(null)
     const [atStart, setAtStart] = useState(false);
     const [atEnd, setAtEnd] = useState(false);
-    const [pressedKey, setPressedKey] = useState([''])
+    const spriteRef = useRef<HTMLDivElement>(null)
 
     // Callbacks
     const checkScrollPosition = useCallback((container: HTMLElement) => {
-        const maxScrollLeft = container.scrollWidth - container.clientWidth;
-
+        const maxScrollLeft = container.scrollLeft + container.clientWidth;
         setAtStart(container.scrollLeft === 0);
-        setAtEnd(container.scrollLeft >= maxScrollLeft);
+        setAtEnd(maxScrollLeft >= container.scrollWidth);
     }, [setAtEnd, setAtStart]);
 
     const moveContainer = useCallback(() => {
@@ -24,51 +26,33 @@ const Welcome = () => {
         if (container) {
             if (key === 'a' || key === 'ArrowLeft') {
                 if (!atEnd)
-                    container.scrollLeft -= 20
+                    container.scrollLeft -= container.scrollWidth * (MOVE_STEP / 100)
             } else if (key === 'd' || key === 'ArrowRight') {
                 if (!atStart) 
-                    container.scrollLeft += 20
+                    container.scrollLeft += container.scrollWidth * (MOVE_STEP / 100)
             }
             checkScrollPosition(container)
         }
     }, [pressedKey, atStart, atEnd, checkScrollPosition])
 
-    const onKeyDown = useCallback((e: KeyboardEvent) => {
-        setPressedKey([...[e.key]])
-    }, [setPressedKey])
-
-    const onScroll = useCallback((e: Event) => {
-        e.preventDefault()
-    }, [])
-
     // useEffects
-    useEffect(() => {
-        window.addEventListener('keydown', onKeyDown)
-        window.addEventListener('wheel', onScroll, {capture: true, passive: false})
-        const container = divRef.current
-        if (container)
-            container.scrollLeft = (container.scrollWidth / 2) - container.clientWidth
-
-        return () => {
-            window.removeEventListener('keydown', onKeyDown)
-            window.removeEventListener('wheel', onScroll, {capture: true})
-        }
-    }, [onKeyDown, onScroll])
-
     useEffect(() => {
         moveContainer()
     }, [moveContainer])
 
     useEffect(() => {
-        setPressedKey([...['']])
+        const container = divRef.current
+        if (container) {
+            container.scrollLeft = container.scrollWidth / 2
+        }
     }, [])
 
     return (
         <div className="w-full h-full overflow-hidden relative" ref={divRef} style={{ touchAction: "none" }}>
             <MarioBackground />
-            <MarioSprite atStart={atStart} atEnd={atEnd} pressedKey={pressedKey} containerDiv={divRef.current}/>
-            <Blocks />
-            <Controls pushFn={setPressedKey}/>
+            <MarioSprite atStart={atStart} atEnd={atEnd} pressedKey={pressedKey} containerDiv={divRef.current} ref={spriteRef}/>
+            <Blocks spriteObj={spriteRef.current}/>
+            <Controls/>
         </div>
     )
 }

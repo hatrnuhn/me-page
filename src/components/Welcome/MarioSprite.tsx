@@ -1,4 +1,5 @@
-import { FC, memo, useCallback, useEffect, useRef, useState } from "react"
+import { forwardRef, memo, useCallback, useEffect, useRef, useState } from "react"
+import { JUMP_DURATION_MS, MOVE_STEP } from "../../constants"
 
 type MarioSpriteProps = {
     atStart: boolean
@@ -7,8 +8,7 @@ type MarioSpriteProps = {
     containerDiv: HTMLDivElement | null
 }
 
-const MarioSprite: FC<MarioSpriteProps> = ({ atEnd, atStart, pressedKey, containerDiv }) => {
-    const divRef = useRef<HTMLDivElement>(null)
+const MarioSprite = forwardRef<HTMLDivElement, MarioSpriteProps>(({ atEnd, atStart, pressedKey, containerDiv }, divRef) => {
     const [x, setX] = useState(0)
     const xRef = useRef<number>(x)
     const [jump, setJump] = useState(false)
@@ -23,90 +23,76 @@ const MarioSprite: FC<MarioSpriteProps> = ({ atEnd, atStart, pressedKey, contain
             const jumpVal = jumpRef.current
             if (!jumpVal) {
                 isTransitioningRef.current = true
-                setTimeout(() => isTransitioningRef.current = false, 300)
+                setTimeout(() => isTransitioningRef.current = false, JUMP_DURATION_MS)
                 jumpRef.current = true
                 setJump(true)
                 setTimeout(() => {
                     setJump(false)
                     jumpRef.current = false
-                }, 150)
+                }, JUMP_DURATION_MS / 2)
             }
         }
 
         if (containerDiv) {
-            const { clientWidth } = containerDiv
-
             if (!atStart && !atEnd) {
-                setX(clientWidth / 2)
-                xRef.current = clientWidth / 2
+                setX(50)
+                xRef.current = 50
             }
     
-            if (containerDiv && divRef.current && ((atStart || atEnd)) && !isTransitioningRef.current) {
+            if (containerDiv && divRef && ((atStart || atEnd)) && !isTransitioningRef.current) {
                 if (key === 'a' || key === 'ArrowLeft') {
-                    if (atEnd && !atStart && xValue - 20 < clientWidth / 2) {
-                        setX(clientWidth / 2)
-                        xRef.current = clientWidth /2
-                        containerDiv.scrollLeft -= 20
+                    if (atEnd && !atStart && xValue - MOVE_STEP <= 50) {
+                        setX(50)
+                        xRef.current = 50
+                        containerDiv.scrollLeft -= 2
                     }
                     else {
-                        if (xValue - 20 > 0) {
-                            setX(prev => prev - 20)
-                            xRef.current -= 20
-                        } else if (xValue - 20 <= 0) {
-                            setX(1)
-                            xRef.current = 1
+                        if (xValue - MOVE_STEP >= 0) {
+                            setX(prev => prev - MOVE_STEP)
+                            xRef.current -= MOVE_STEP
+                        } else if (xValue - MOVE_STEP <= 0) {
+                            setX(0)
+                            xRef.current = 0
                         }
                     }
                 } else if ((key === 'd' || key === 'ArrowRight')) {
-                    if (atStart && !atEnd && xValue + 20 > clientWidth / 2) {
-                        setX(clientWidth / 2)
-                        xRef.current = clientWidth / 2
-                        containerDiv.scrollLeft += 20
+                    if (atStart && !atEnd && xValue + MOVE_STEP >= 50) {
+                        setX(50)
+                        xRef.current = 50
+                        containerDiv.scrollLeft += 2
                     } else {
-                        if (xValue + 20 < clientWidth) {
-                            setX(prev => prev + 20)
-                            xRef.current += 20
+                        if (xValue + MOVE_STEP <= 100 - MOVE_STEP) {
+                            setX(prev => prev + MOVE_STEP)
+                            xRef.current += MOVE_STEP
                         }
-                        else if (xValue + 20 >= clientWidth) {
-                            setX(clientWidth - divRef.current.offsetWidth)
-                            xRef.current = clientWidth - divRef.current.offsetWidth
+                        else if (xValue + MOVE_STEP >= 100 - MOVE_STEP) {
+                            setX(100 - MOVE_STEP)
+                            xRef.current = 100 - MOVE_STEP
                         }
-    
                     }
                 }
             }
         }
-    }, [pressedKey, setX, atEnd, atStart, containerDiv])
+    }, [pressedKey, setX, atEnd, atStart, containerDiv, divRef])
 
     useEffect(() => {
         moveSprite()
     }, [moveSprite])
 
     useEffect(() => {
-        if (containerDiv) {
-            const initialX = containerDiv.clientWidth / 2
-            setX(initialX)
-            xRef.current = initialX
-        }
-    }, [setX, containerDiv])
-
-    useEffect(() => {
-        if ((atStart || atEnd) && containerDiv && x === 0) {
-            const initialX = containerDiv.clientWidth / 2
-            setX(initialX)
-            xRef.current = initialX
-        }
-    }, [atStart, atEnd, x, containerDiv])
+        setX(50)
+        xRef.current = 50
+    }, [])
 
     return (
         <>
             <div 
-                className={`w-4 h-12 bg-white fixed transition-transform duration-150 bottom-[80px]`}
+                className={`w-[3dvh] h-[9dvh] bg-white fixed transition-transform duration-150 bottom-[15dvh] origin-center`}
                 ref={divRef}
-                style={{ transform: `translateX(${x}px) ${jump ? 'translateY(-130px)' : ''}` }}
+                style={{ transform: `translateX(${x}dvw) ${jump ? 'translateY(-17dvh)' : ''}` }}
             />
         </>
     )
-}
+})
 
 export default memo(MarioSprite)

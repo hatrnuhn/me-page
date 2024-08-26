@@ -17,8 +17,8 @@ const Stars = () => {
         <div className="h-full w-full text-yellow-100 flex overflow-hidden">
             {[[...Array(3)].map((_, i) => (
                 <div className="relative grow" key={i}>
-                    {[...Array(getRandomNumber(2, 4))].map((_, i) => (
-                        <Star key={i}/>
+                    {[...Array(getRandomNumber(2, 4))].map(() => (
+                        <Star key={crypto.randomUUID()}/>
                     ))}
                 </div>
             ))]}
@@ -49,8 +49,8 @@ const Clouds = () => {
         <div className="h-full w-full flex overflow-hidden">
             {[[...Array(3)].map((_, i) => (
                 <div className="relative grow" key={i}>
-                    {[...Array(getRandomNumber(1, 2))].map((_, i) => (
-                        <Cloud key={i}/>
+                    {[...Array(getRandomNumber(1, 2))].map(() => (
+                        <Cloud key={crypto.randomUUID()}/>
                     ))}
                 </div>
             ))]}
@@ -66,7 +66,7 @@ const Sky: FC<SkyProps> = ({ theme }) => {
     const CloudsMemoized = memo(Clouds)
 
     return (
-        <div className="absolute h-full w-full min-w-[1920px] sky bg-gradient-to-b from-sky-400 to-sky-200 dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-600 z-[-1]">
+        <div className="absolute h-full w-[500dvh] sky bg-gradient-to-b from-sky-400 to-sky-200 dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-600 z-[-1]">
             <div className="h-4/5">
                 {
                     theme === 'dark' ? 

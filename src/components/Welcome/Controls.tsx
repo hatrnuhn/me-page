@@ -1,4 +1,5 @@
 import { Dispatch, FC, memo, SetStateAction } from "react"
+import { useGlobal } from "../../hooks"
 
 const ArrowUp: FC<{ pushFn: Dispatch<SetStateAction<string[]>>
  }> = ({ pushFn }) => {
@@ -33,11 +34,8 @@ const ArrowRight: FC<{ pushFn: Dispatch<SetStateAction<string[]>>
     )
 }
 
-type ControlsProps = {
-    pushFn: Dispatch<SetStateAction<string[]>>
-}
-
-const Controls: FC<ControlsProps> = ({ pushFn }) => {
+const Controls = () => {
+    const { pressedKey: {setPressedKey: pushFn} } = useGlobal()!
     const ArrowRightMemoized = memo(ArrowRight)
     const ArrowLeftMemoized = memo(ArrowLeft)
     const ArrowUpMemoized = memo(ArrowUp)
