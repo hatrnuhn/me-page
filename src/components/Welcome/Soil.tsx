@@ -46,7 +46,7 @@ const Soil = () => {
     const DirtMemoized = memo(Dirt)
 
     return (
-        <div className="h-[15dvh] w-[500dvh] absolute shadow bottom-0 bg-yellow-800 dark:bg-yellow-900 z-[-1]">
+        <div className="h-[15dvh] w-[100dvw] min-w-[1920px] absolute shadow bottom-0 bg-yellow-800 dark:bg-yellow-900 z-[-1]">
             <DirtMemoized />
             <GrassMemoized />
         </div>

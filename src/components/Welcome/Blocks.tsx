@@ -114,7 +114,7 @@ const Blocks: FC<BlocksProps> = ({ spriteObj }) => {
     const CharBlockMemoized = memo(CharBlock)
 
     return (
-        <div className="bottom-[40dvh] w-[500dvh] absolute flex drop-shadow-md justify-center">
+        <div className="bottom-[40dvh] w-[100dvw] min-w-[1920px] absolute flex drop-shadow-md justify-center">
             {[...Array(4)].map(() => <GenericBlockMemoized key={crypto.randomUUID()}/>)}
             <CharBlockMemoized chars="ME" p="WHAT. IS. UP?! I'm Yusron I sure love building in the Web and I ain't even no spider!" title="On Me" spriteObj={spriteObj} />
             {[...Array(9)].map(() => <GenericBlockMemoized key={crypto.randomUUID()} />)}

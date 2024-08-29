@@ -66,7 +66,7 @@ const Sky: FC<SkyProps> = ({ theme }) => {
     const CloudsMemoized = memo(Clouds)
 
     return (
-        <div className="absolute h-full w-[500dvh] sky bg-gradient-to-b from-sky-400 to-sky-200 dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-600 z-[-1]">
+        <div className="absolute h-full w-[100dvw] min-w-[1920px] sky bg-gradient-to-b from-sky-400 to-sky-200 dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-600 z-[-1]">
             <div className="h-4/5">
                 {
                     theme === 'dark' ? 

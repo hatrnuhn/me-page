@@ -40,6 +40,7 @@ const MarioSprite = forwardRef<HTMLDivElement, MarioSpriteProps>(({ atEnd, atSta
             }
     
             if (containerDiv && divRef && ((atStart || atEnd)) && !isTransitioningRef.current) {
+                const getRatio = () =>  (containerDiv.scrollWidth / containerDiv.clientWidth )
                 if (key === 'a' || key === 'ArrowLeft') {
                     if (atEnd && !atStart && xValue - MOVE_STEP <= 50) {
                         setX(50)
@@ -47,10 +48,10 @@ const MarioSprite = forwardRef<HTMLDivElement, MarioSpriteProps>(({ atEnd, atSta
                         containerDiv.scrollLeft -= 2
                     }
                     else {
-                        if (xValue - MOVE_STEP >= 0) {
-                            setX(prev => prev - MOVE_STEP)
-                            xRef.current -= MOVE_STEP
-                        } else if (xValue - MOVE_STEP <= 0) {
+                        if (xValue - (MOVE_STEP * getRatio()) >= 0) {
+                            setX(prev => prev - (MOVE_STEP * getRatio()))
+                            xRef.current -= MOVE_STEP * getRatio()
+                        } else if (xValue - (MOVE_STEP * getRatio()) <= 0) {
                             setX(0)
                             xRef.current = 0
                         }
@@ -61,13 +62,13 @@ const MarioSprite = forwardRef<HTMLDivElement, MarioSpriteProps>(({ atEnd, atSta
                         xRef.current = 50
                         containerDiv.scrollLeft += 2
                     } else {
-                        if (xValue + MOVE_STEP <= 100 - MOVE_STEP) {
-                            setX(prev => prev + MOVE_STEP)
-                            xRef.current += MOVE_STEP
+                        if (xValue + (MOVE_STEP * getRatio()) <= 100 - MOVE_STEP) {
+                            setX(prev => prev + (MOVE_STEP * getRatio()))
+                            xRef.current += MOVE_STEP * getRatio()
                         }
-                        else if (xValue + MOVE_STEP >= 100 - MOVE_STEP) {
-                            setX(100 - MOVE_STEP)
-                            xRef.current = 100 - MOVE_STEP
+                        else if (xValue + (MOVE_STEP * getRatio()) >= 100 - MOVE_STEP) {
+                            setX(100 - (MOVE_STEP * getRatio()))
+                            xRef.current = 100 - (MOVE_STEP * getRatio())
                         }
                     }
                 }
