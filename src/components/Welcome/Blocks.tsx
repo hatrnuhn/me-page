@@ -39,10 +39,9 @@ const CharBlock: FC<CharBlockProps> = ({ chars, p, title, spriteObj }) => {
             const hRect = hRef.current!.getClientRects()[0]
             const hXMin = hRect.x
             const hXMax = hRect.x + hRect.width
-            const spriteXMin = spriteRect.x
-            const spriteXMax = spriteRect.x + spriteRect.width
+            const spriteXCenter = spriteRect.x + (spriteRect.width / 2)
             
-            if ((key === 'w' || key === 'ArrowUp') && (spriteXMin >= hXMin && spriteXMax <= hXMax)) {
+            if ((key === 'w' || key === 'ArrowUp') && (spriteXCenter >= hXMin && spriteXCenter <= hXMax)) {
                 setTimeout(() => {
                     if (!isShowingVal && !isTyping) {
                         setIsShowing(true)
@@ -73,13 +72,13 @@ const CharBlock: FC<CharBlockProps> = ({ chars, p, title, spriteObj }) => {
 
     return (
         <article>
-            <h2 className="text-[4.5dvh] px-[1dvh] flex justify-center items-center" style={{fontFamily: "RocherColor", fontVariationSettings: `"BVEL" 69, "SHDW" 100`}} ref={hRef}>{chars}</h2>
+            <h2 className="text-[1.5rem] mx-[0.2rem] flex justify-center items-center" style={{fontFamily: "RocherColor", fontVariationSettings: `"BVEL" 69, "SHDW" 100`}} ref={hRef}>{chars}</h2>
 
             {
                 isShowing &&
-                <span className="absolute bottom-[9dvh] rounded-t-[3dvh] rounded-b-[1dvh] bg-gray-800 px-[1%] py-[0.5%] text-gray-300 border-[0.7dvh] border-[#7e5e4e] max-w-[45dvh] -translate-x-[39%]" style={{ fontFamily: "RocherColor", fontVariationSettings: `"BVEL" 0, "SHDW" 100`, borderStyle: "ridge"}}>
-                    <span className="text-[3.5dvh]" aria-hidden ><b>{titleValue}</b></span>
-                    <p className="text-[2.5dvh] text-justify" dangerouslySetInnerHTML={{__html: pValue}}></p>
+                <span className="absolute bottom-[2.5rem] rounded-t-[1rem] rounded-b-[0.5rem] bg-gray-800 px-[1%] py-[0.5%] text-gray-300 border-[0.3rem] border-[#7e5e4e] max-w-[20rem] -translate-x-[42%]" style={{ fontFamily: "RocherColor", fontVariationSettings: `"BVEL" 0, "SHDW" 100`, borderStyle: "ridge"}}>
+                    <span className="text-[1.5rem]" aria-hidden ><b>{titleValue}</b></span>
+                    <p className="text-[1rem] text-justify" dangerouslySetInnerHTML={{__html: pValue}}></p>
                 </span>
             }
         </article>
@@ -88,7 +87,7 @@ const CharBlock: FC<CharBlockProps> = ({ chars, p, title, spriteObj }) => {
 
 const GenericBlock = () => {
     return (
-        <svg width="6dvh" height="6dvh">
+        <svg width="2rem" height="2.22rem">
             <style>
                 {
                     `
@@ -98,7 +97,7 @@ const GenericBlock = () => {
                     `
                 }
             </style>
-            <text className="block" fontFamily="RocherColor" fontSize="15dvh" x="-0.5dvh" y="7.5dvh" fill="red">
+            <text className="block" fontFamily="RocherColor" fontSize="5rem" x="-0.19rem" y="2.7rem">
                 {'•'}
             </text>
         </svg>
@@ -114,11 +113,11 @@ const Blocks: FC<BlocksProps> = ({ spriteObj }) => {
     const CharBlockMemoized = memo(CharBlock)
 
     return (
-        <div className="bottom-[40dvh] w-[100dvw] min-w-[1920px] absolute flex drop-shadow-md justify-center">
+        <div className="bottom-[40%] min-w-[1920px] z-10 w-[100dvw] absolute flex drop-shadow-md justify-center">
             {[...Array(4)].map(() => <GenericBlockMemoized key={crypto.randomUUID()}/>)}
-            <CharBlockMemoized chars="ME" p="WHAT. IS. UP?! I'm Yusron I sure love building in the Web and I ain't even no spider!" title="On Me" spriteObj={spriteObj} />
+            <CharBlockMemoized chars="ME" p="WHAT. IS. UP?! I'm Yusron. I sure love building in the Web 🕸 and I ain't even no spider!" title="On Me" spriteObj={spriteObj} />
             {[...Array(9)].map(() => <GenericBlockMemoized key={crypto.randomUUID()} />)}
-            <CharBlockMemoized chars="ST" p="Language: Typescript<br>Front-end: React & Vite<br>Back-end: Node & Express<br>DB: PostgreSQL & MongoDB" title="Stack" spriteObj={spriteObj} />
+            <CharBlockMemoized chars="ST" p="Language: Typescript<br>Front-end: React<br>Back-end: Node & Express<br>DB: PostgreSQL & MongoDB" title="Stack" spriteObj={spriteObj} />
             {[...Array(7)].map(() => <GenericBlockMemoized key={crypto.randomUUID()} />)}
             <CharBlockMemoized chars="PJs" p={`<a href="https://jangkau-delta.vercel.app/" target="_blank">Jangkau</a>`} title="Projects" spriteObj={spriteObj} />
             {[...Array(5)].map(() => <GenericBlockMemoized key={crypto.randomUUID()}/>)}

@@ -2,13 +2,12 @@ import { memo, useCallback, useEffect, useRef, useState } from "react"
 import MarioBackground from "../components/Welcome/MarioBackground"
 import MarioSprite from "../components/Welcome/MarioSprite"
 import Controls from "../components/Welcome/Controls"
-import Blocks from "../components/Welcome/Blocks"
-import { useGlobal } from "../hooks"
+import { useGlobal, useWelcome } from "../hooks"
 import { MOVE_STEP } from "../constants"
 
 const Welcome = () => {
     const { pressedKey: {value: pressedKey} } = useGlobal()!
-    const divRef = useRef<HTMLDivElement>(null)
+    const { containerRef } = useWelcome()!
     const [atStart, setAtStart] = useState(false);
     const [atEnd, setAtEnd] = useState(false);
     const spriteRef = useRef<HTMLDivElement>(null)
@@ -22,7 +21,7 @@ const Welcome = () => {
 
     const moveContainer = useCallback(() => {
         const key = pressedKey[0]
-        const container = divRef.current
+        const container = containerRef.current
         if (container) {
             if (key === 'a' || key === 'ArrowLeft') {
                 if (!atEnd)
@@ -33,7 +32,7 @@ const Welcome = () => {
             }
             checkScrollPosition(container)
         }
-    }, [pressedKey, atStart, atEnd, checkScrollPosition])
+    }, [pressedKey, atStart, atEnd, checkScrollPosition, containerRef])
 
     // useEffects
     useEffect(() => {
@@ -41,17 +40,16 @@ const Welcome = () => {
     }, [moveContainer])
 
     useEffect(() => {
-        const container = divRef.current
+        const container = containerRef.current
         if (container) {
             container.scrollLeft = container.scrollWidth / 2
         }
-    }, [])
+    }, [containerRef])
 
     return (
-        <div className="w-full h-full overflow-hidden relative" ref={divRef} style={{ touchAction: "none" }}>
-            <MarioBackground />
-            <MarioSprite atStart={atStart} atEnd={atEnd} pressedKey={pressedKey} containerDiv={divRef.current} ref={spriteRef}/>
-            <Blocks spriteObj={spriteRef.current}/>
+        <div className="w-full h-full overflow-hidden" ref={containerRef} style={{ touchAction: "none" }}>
+            <MarioBackground spriteObj={spriteRef.current!}/>
+            <MarioSprite atStart={atStart} atEnd={atEnd} pressedKey={pressedKey} ref={spriteRef}/>
             <Controls/>
         </div>
     )

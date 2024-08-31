@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useEffect, useState } from "react"
-import { GlobalContext } from "../../../contexts/Global"
+import { GlobalContext } from "../contexts/Global"
 
 const GlobalProvider = ({ children }: { children: ReactNode}) => {
     const [pressedKey, setPressedKey] = useState<string[]>([''])
