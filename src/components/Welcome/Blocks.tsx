@@ -115,7 +115,7 @@ const Blocks: FC<BlocksProps> = ({ spriteObj }) => {
     return (
         <div className="bottom-[40%] min-w-[1920px] z-10 w-[100dvw] absolute flex drop-shadow-md justify-center">
             {[...Array(4)].map(() => <GenericBlockMemoized key={crypto.randomUUID()}/>)}
-            <CharBlockMemoized chars="ME" p="WHAT. IS. UP?! I'm Yusron. I sure love building in the Web 🕸 and I ain't even no spider!" title="On Me" spriteObj={spriteObj} />
+            <CharBlockMemoized chars="ME" p="WHAT. IS. UP?! I'm Yusron. I sure love building in the Web 🕸 and I ain't even no spider 🕷!" title="On Me" spriteObj={spriteObj} />
             {[...Array(9)].map(() => <GenericBlockMemoized key={crypto.randomUUID()} />)}
             <CharBlockMemoized chars="ST" p="Language: Typescript<br>Front-end: React<br>Back-end: Node & Express<br>DB: PostgreSQL & MongoDB" title="Stack" spriteObj={spriteObj} />
             {[...Array(7)].map(() => <GenericBlockMemoized key={crypto.randomUUID()} />)}
